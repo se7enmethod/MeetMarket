@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {% block content %} {% if this_user.admin == True %}
+
+<h1 style="padding-top: 30px; margin-top: 70px;">Edit {{this_item.name}}</h1>
+<hr />
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<form
+  action="{% url 'item:my_post_edit_item' this_item.id %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="name">Name of Listing:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      value="{{this_item.name}}"
+    />
+    <label for="price">Price:</label>
+    <input
+      type="number"
+      step="0.01"
+      class="form-control"
+      name="price"
+      value="{{this_item.price}}"
+    />
+    <label for="description">Description:</label>
+    <textarea name="description" class="form-control">
+{{this_item.description}}</textarea
+    >
+    <label for="location">Location:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="location"
+      placeholder="Current location of the item"
+      value="{{this_item.location}}"
+    />
+    <label for="condition">Condition:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="condition"
+      placeholder="Mint, Great, Fair, Bad, etc.."
+      value="{{this_item.condition}}"
+    />
+    <label for="category">Category:</label>
+    <select name="category" class="custom-select mr-sm-2">
+      <option value="{{this_item.category.name}}"
+        >{{this_item.category.name}}</option
+      >
+      {% for category in all_categories %}
+      <option value="{{category.name}}">{{category.name}}</option>
+      {% endfor %}
+    </select>
+    {% if not image %}
+    <label for="images">Upload Image:</label>
+    <input type="file" name="images" value="{{image}}" />
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a
+      href="{% url 'login:my_successful_log_in' %}"
+      class="btn btn-info"
+      role="button"
+      >Cancel</a
+    >
+    {% if this_user.admin == True %}
+    <a
+      href="{% url 'item:my_delete_item' this_item.id %}"
+      class="btn btn-danger"
+      role="button"
+      >Delete</a
+    >{% endif %}{% endif %}
+  </div>
+</form>
+{% endblock %}

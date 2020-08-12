@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block content %}
+<main role="main">
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4" style="padding: 20px; margin-top: 20px;">Register</h1>
+  </div>
+  <hr />
+</main>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<form action="{% url 'login:my_register' %}" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="first_name">First Name</label>
+    <input type="text" class="form-control" name="first_name" />
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last Name</label>
+    <input type="text" class="form-control" name="last_name" />
+  </div>
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" class="form-control" name="email" />
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" name="location" />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" />
+  </div>
+  <div class="form-group">
+    <label for="confirm_pw">Confirm Password</label>
+    <input type="password" class="form-control" name="confirm_pw" />
+  </div>
+  <div class="form-group">
+	<label asp-for="admin"></label>&nbsp<span asp-validation-for="admin" class="error-message"></span>
+	<select asp-for="admin" class ="form-control">
+		<option value="True">God</option>
+		<option value="False">Normal Person</option>
+	</select>
+  </div>
+  <button type="submit" class="btn btn-primary">Register!</button>
+</form>
+<br />
+<a href="{% url 'login:my_index' %}">Have an account? Click here to login!</a>
+
+<!-- <body class="text-center">
+    <form class="form-signin">
+      <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign up!</h1>
+      <label for="first_name" class="sr-only">First Name</label>
+      <input type="first_name" id = "first_name" name="first_name" class="form-control" placeholder="First Name" required autofocus>
+      <label for="last_name" class="sr-only">Last Name</label>
+      <input type="last_name" id= "last_name" name="last_name" class="form-control" placeholder="last Name" required autofocus>
+      <label for="location" class="sr-only">Location</label>
+      <input type="location" id= "location" name="location" class="form-control" placeholder="location" required autofocus>
+      <label for="email" class="sr-only">Email Address</label>
+      <input type="email" id = "inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" id = "inputPassword" name="password" class="form-control" placeholder="Password" required>
+      <label for="confirm_pw" class="sr-only">Confirm Password</label>
+      <input type="confirm_pw" id = "confirm_pw" name="confirm_password" class="form-control" placeholder="Password" required>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+      <a href="/">Have an account? Click here to login!</a>
+    </form>
+  </body> -->
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block content %}
+
+<main role="main">
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4" style="padding: 20px; margin-top: 20px;">
+      All Item Listings
+    </h1>
+  </div>
+  <hr />
+</main>
+
+<!-- <h1>All Item Listings</h1> -->
+{% for item in items %} {% for image in item.images.all %}
+<img class="img-fluid" src="{{image.image.url}}" width="200px" height="200px" />
+{% endfor %}
+<a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a>
+<p>${{item.price}}</p>
+<hr />
+
+{% endfor %} {% endblock %}
+
+<!-- <div class="card-deck">
+  {% for item in items %} {% for image in item.images.all %}
+  <div class="card">
+    <img src="{{image.image.url}}" class="card-img-top" />
+    {% endfor %}
+    <div class="card-body">
+      <h5 class="card-title">{{item.name}}</h5>
+      <p class="card-text">{{item.description}}</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated {{item.created_at}}</small>
+        <div class="btn-group">
+           <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+           <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+ -->
+
+<!--
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+        This card has even longer content than the first to show that equal height action.</p>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+  </div>
+</div> -->
+<!-- </div> -->

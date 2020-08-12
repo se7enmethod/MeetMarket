@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- <a href="/all_listings">All Item Listings</a> &#124;
+<a href="/direct_message">Direct Message</a> &#124;
+<a href="/new_item">New Listing</a> &#124; <a href="/logout">Log Out</a> &#124; -->
+<h1 class="page-header" style="padding-top: 20px; margin-top: 50px;">
+  Welcome Admin User: {{admin.first_name}}!
+</h1>
+<hr />
+<h4>Update User:</h4>
+<form
+  action="{% url 'login:my_admin_post_edit_user' edit_user.id %}"
+  method="POST"
+>
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="first_name">First Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="first_name"
+      value="{{edit_user.first_name}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="last_name"
+      value="{{edit_user.last_name}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      value="{{edit_user.email}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input
+      type="text"
+      class="form-control"
+      name="location"
+      value="{{edit_user.location}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="admin">Is Admin?</label>
+    <select name="admin">
+      <option>False</option>
+      <option>True</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Edit</button>
+  <a
+    href="{% url 'login:my_admin_controls' %}"
+    class="btn btn-info"
+    role="button"
+    >Cancel</a
+  >
+  <a
+    href="{% url 'login:my_admin_delete_category' this_category.id %}"
+    class="btn btn-danger"
+    role="button"
+    >Delete</a
+  >
+</form>
+{% endblock %}

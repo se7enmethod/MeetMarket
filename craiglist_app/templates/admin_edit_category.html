@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block content %}
+<div style="margin-top: 100pt;"></div>
+<h2>Welcome Admin User: {{admin.first_name}}!</h2>
+
+<h4>Update Category Name:</h4>
+<form
+  action="{% url 'login:my_admin_post_edit_category' this_category.id %}"
+  method="POST"
+>
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="name">Name of Category:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      value="{{this_category.name}}"
+    />
+    <button type="submit" class="btn btn-primary">Edit</button>
+    <a
+      href="{% url 'login:my_admin_controls' %}"
+      class="btn btn-info"
+      role="button"
+      >Cancel</a
+    >
+    <a
+      href="{% url 'login:my_admin_delete_category' this_category.id %}"
+      class="btn btn-danger"
+      role="button"
+      >Delete</a
+    >
+  </div>
+</form>
+<div class="row">
+  <h4>All Items in this Category:</h4>
+  <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+      <th>Flag Status</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>Posted By:</th>
+      <th>Posted On:</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </thead>
+    {% for item in this_category.items.all %} {% if item.flag == False %}
+    <tr>
+      {% else %}
+    </tr>
+
+    <tr class="danger">
+      {% endif %}
+      <td>{{item.flag}}</td>
+      <td><a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a></td>
+      <td>${{item.price}}</td>
+      <td>
+        <a href="{% url 'item:my_user_page' item.user.id %}"
+          >{{item.user.first_name}}</a
+        >
+      </td>
+      <td>{{item.created_at}}</td>
+      <td>{{item.location}}</td>
+      <td>
+        <a href="{% url 'item:my_edit_item' item.id %}">Edit</a> |
+        <a href="{% url 'item:my_delete_item' item.id %}" class="danger"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

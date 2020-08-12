@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<main role="main">
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4" style="padding: 20px; margin-top: 20px;">Welcome {{user_first_name}}!</h1>
+	<p class="lead">Feel free to browse or click above to add your own listing!</p>
+	<p></p>
+    <small>MeetMarket is brought to you by <i>Monica Hong, Sawyee Beck, Levi Blank, and Patrick Hebert</i> as a Project during our residency at Coding Dojo</small>
+  </div>
+  <hr>
+</main>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="lead">Recently added to categories:</p>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-md-4 form-group">
+  <h4 class="form-control">
+    <a href="{% url 'item:my_category_page' last_3category.0.id %}">{{last_3category.0.name}}</a>
+  </h4>
+  {% for item in last_cat_last_3items %}
+  <p class="form-control">
+    {% for image in item.images.all %}
+    <img class="img-fluid thumbnail" src="{{image.image.url}}" />
+    {% endfor %}
+    <a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a> - ${{item.price}}<br />
+    {% if user_admin == True %} 
+    <a href="{% url 'item:my_edit_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Edit</a><a href="{% url 'item:my_delete_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Delete</a>{% endif %}
+  </p>
+  {% endfor %}
+</div>
+
+  <div class="col-md-4 form-group">
+    <h4 class="form-control">
+      <a href="{% url 'item:my_category_page' last_3category.1.id %}">{{last_3category.1.name}}</a>
+    </h4>
+    {% for item in seclast_cat_last_3items %}
+    <p class="form-control">
+      {% for image in item.images.all %}
+      <img class="img-fluid thumbnail" src="{{image.image.url}}" />
+      {% endfor %}
+      <a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a> - ${{item.price}}<br />
+      {% if user_admin == True %}
+      <a href="{% url 'item:my_edit_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Edit</a><a href="{% url 'item:my_delete_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Delete</a>{% endif %}
+    </p>
+    {% endfor %}
+  </div>
+  <div class="col-md-4 form-group">
+    <h4 class="form-control">
+      <a href="{% url 'item:my_category_page' last_3category.2.id %}">{{last_3category.2.name}}</a>
+    </h4>
+    {% for item in thirdlast_cat_last_3items %}
+    <p class="form-control">
+      {% for image in item.images.all %}
+      <img class="img-fluid" src="{{image.image.url}}" />
+      {% endfor %}
+      <a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a> - ${{item.price}} <br>
+      {% if user_admin == True %}
+      <a href="{% url 'item:my_edit_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Edit</a><a href="{% url 'item:my_delete_item' item.id %}" role="button" class="btn btn-outline-secondary btn-sm">Delete</a>{% endif %}
+    </p>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+{% endblock %}

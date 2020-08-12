@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page-header" style="padding-top: 20px; margin-top: 50px;">
+  {{category.name}}
+</h1>
+<hr />
+<p class="head">Number of Posts: {{items_in_cat.all|length}}</p>
+<div class="row">
+  {% for item in items_in_cat %}
+  <div class="col-md-3">
+    {% for image in item.images.all %}
+    <img
+      class="img-fluid"
+      src="{{image.image.url}}"
+      width="200px"
+      height="200px"
+    />
+    {% endfor %}
+    <p>
+      Name: <a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a>
+    </p>
+    <p>Price: ${{item.price}}</p>
+  </div>
+
+  {% endfor %}
+</div>
+{% endblock %}

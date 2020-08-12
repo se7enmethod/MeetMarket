@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 style="padding-top: 20px; margin-top: 50px;">
+  {{user.first_name}} {{user.last_name}}
+</h1>
+<p>Member Since: {{user.created_at}}</p>
+<h3>Current Item Listings:</h3>
+{% for item in items %}
+<a href="{% url 'item:my_item_info' item.id %}">{{item.name}}</a> &#124;
+{% endfor %}
+<hr />
+<h3>
+  Average Reviews: {{avg}} out of 5
+</h3>
+<div class="overflow-auto">
+  {% for review in reviews %}
+  <h6>{{review.rating}} Star(s)</h6>
+  <p>{{review.content}}</p>
+  <hr />
+  {% endfor %}
+</div>
+{% if user.id != logged_user.id %}
+<form action="{% url 'item:my_new_review' %}" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="rating">Rating:</label>
+    <select name="rating" class="custom-select mr-sm-2">
+      <option value="" disabled selected hidden>How many stars?</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <label for="review">Give {{user.first_name}} a review:</label>
+    <textarea class="form-control" name="review" cols="30" rows="10"></textarea>
+  </div>
+  <input type="hidden" name="user_id" value="{{user.id}}" />
+  <button type="submit" class="btn btn-primary">Post Review</button>
+</form>
+{% endif %} 
+{% endblock %}
