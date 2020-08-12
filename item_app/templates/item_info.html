@@ -45,19 +45,19 @@
       >
         Admin Flag Controls {% csrf_token %}
         <select name="flag">
-          <option value="False">False</option>
-          <option value="True">True</option>
+          <option value="False">UnFlagged</option>
+          <option value="True">Flagged</option>
         </select>
         <button class="btn btn-outline-default btn-sm">Update</button>
       </form>
       {% endif %}
-      <!-- <hr /> -->
+      <hr />
     </div>
 
     <div class="col-md-5">
       <form action="{% url 'item:my_post_message' %}" method="POST">
         {% csrf_token %}
-        <!-- <div class="form-group"> -->
+        <div class="form-group">
         <label for="message">Leave a Message:</label>
         <textarea
           class="form-control"
@@ -67,15 +67,15 @@
         ></textarea>
         <input type="hidden" name="user_id" value="{{user_id}}" />
         <input type="hidden" name="item_id" value="{{item.id}}" />
-        <!-- </div> -->
+        </div>
         <button type="submit" class="btn btn-outline-primary btn-sm">
           Post Message
         </button>
       </form>
       {% for message in messages reversed %}
-      <h4>
+      <h5>
         {{message.user.first_name}} {{message.user.last_name}} - {{time}}
-      </h4>
+      </h5>
       <p>{{message.message}}</p>
       {% for comment in message.comments.all %}
       <h6>
@@ -85,23 +85,24 @@
       {% endfor %}
       <form action="{% url 'item:my_post_comment' %}" method="POST" style="height: 100px; width: 300px;">
         {% csrf_token %}
-        <!-- <div class="form-group"> -->
-        <label for="comment">Reply
-		</label> <br />
+        <div class="form-group">
+        <!-- <label for="comment">Reply
+		</label>  -->
         <textarea
           class="form-control"
           name="comment"
-          cols="40"
-          rows="3"
+          cols="30"
+          rows="1"
         ></textarea>
-        <br />
         <input type="hidden" name="messageid" value="{{message.id}}" />
         <input type="hidden" name="userid" value="" />
         <input type="hidden" name="itemid" value="{{item.id}}" />
-        <!-- </div> -->
+        </div>
         <button type="submit" class="btn btn-outline-primary btn-sm">
-          Post Comment
-        </button>
+          Comment on this Message
+		</button>
+		<hr/>
+		
       </form>
     </div>
   </div>

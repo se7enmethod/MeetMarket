@@ -13,7 +13,7 @@
 <div class="container" style="padding-left: 85px;">
   <div class="row">
     {% for category in categories %}
-    <div class="card" style="width: 12rem;">
+    <div class="card" style="width: 12rem; margin: 2pt">
       <div class="card-body">
         <a
           href="{% url 'item:my_category_page' category.id %}"

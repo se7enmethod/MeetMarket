@@ -185,7 +185,7 @@ def post_edit_user(request, user_id):
         this_user.location = request.POST['location']
         this_user.admin = request.POST['admin']
         this_user.save()
-        return redirect('item:my_user_page', user_id)
+        return redirect('login:my_admin_controls')
 
 
 def delete_user(request, user_id):

@@ -56,18 +56,13 @@
       <option>True</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-primary">Edit</button>
+  <button type="submit" class="btn btn-primary">Save</button>
   <a
     href="{% url 'login:my_admin_controls' %}"
     class="btn btn-info"
     role="button"
     >Cancel</a
   >
-  <a
-    href="{% url 'login:my_admin_delete_category' this_category.id %}"
-    class="btn btn-danger"
-    role="button"
-    >Delete</a
-  >
+  
 </form>
 {% endblock %}

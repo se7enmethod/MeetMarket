@@ -1,80 +1,94 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meet Market</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      type="css/text"
-      href="{% static 'css/style.css' %}"
-    />
-  </head>
-  <body style="background-color: black;">
-    {% if request.session.log_email %}
-
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="{% url 'login:my_successful_log_in' %}"
-        >MeetMarket</a
-      >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            {% if this_user.admin == True %}
-          </li>
-
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'login:my_admin_controls' %}"
-              >Admin Controls<span class="sr-only">(current)</span></a
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Meet Market</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            type="css/text"
+            href="{% static 'css/style.css' %}"
+        />
+    </head>
+    <body>
+        {% if request.session.log_email %}
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a
+                class="navbar-brand"
+                href="{% url 'login:my_successful_log_in' %}"
+                >MeetMarket</a
             >
-          </li>
-          {% endif %}
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'item:my_all_listings' %}"
-              >All Item Listings<span class="sr-only">(current)</span></a
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
             >
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'item:my_all_categories' %}"
-              >All Categories<span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'item:my_new_item' %}"
-              >New Listing<span class="sr-only">(current)</span></a
-            >
-          </li>
-        </ul>
-        <a
-          class="btn btn-sm btn-outline-secondary"
-          href="{% url 'login:my_log_out' %}"
-          >Log Out</a
-        >
-      </div>
-    </nav>
-    {% endif %}
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="content container">
-      {% block content %} {% endblock %}
-    </div>
-  </body>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        {% if this_user.admin == True %}
+                    </li>
+
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link"
+                            href="{% url 'login:my_admin_controls' %}"
+                            >Admin Controls<span class="sr-only"
+                                >(current)</span
+                            ></a
+                        >
+                    </li>
+                    {% endif %}
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link"
+                            href="{% url 'item:my_all_listings' %}"
+                            >All Item Listings<span class="sr-only"
+                                >(current)</span
+                            ></a
+                        >
+                    </li>
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link"
+                            href="{% url 'item:my_all_categories' %}"
+                            >All Categories<span class="sr-only"
+                                >(current)</span
+                            ></a
+                        >
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'item:my_new_item' %}"
+                            >Add a Listing<span class="sr-only"
+                                >(current)</span
+                            ></a
+                        >
+                    </li>
+                </ul>
+                <a
+                    class="btn btn-sm btn-outline-secondary"
+                    href="{% url 'login:my_log_out' %}"
+                    >Log Out</a
+                >
+            </div>
+        </nav>
+        {% endif %}
+        <div class="content container">
+            {% block content %} {% endblock %}
+        </div>
+    </body>
 </html>
